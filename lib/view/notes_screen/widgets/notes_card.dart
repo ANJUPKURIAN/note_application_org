@@ -10,7 +10,7 @@ class NotesCard extends StatelessWidget {
        required this.title,
        required this.description,
        required this.date,
-       required this.colorIndex,
+       required this.selectedColorIndex,
        this.onDeletepressed,
        this.onEditPressed,
        });
@@ -18,47 +18,47 @@ class NotesCard extends StatelessWidget {
   final String title;
   final String description;
   final String date;
-  final int colorIndex;
+  final int selectedColorIndex;
   final void Function()? onDeletepressed;
   final void Function()? onEditPressed;
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      padding: EdgeInsets.only(top: 10, bottom: 15, left: 15, right: 20),
       decoration: BoxDecoration(
-          color: NotesScreenController.colorList[colorIndex],
-          borderRadius: BorderRadius.circular(13)),
+          color: NotesScreenController.colorList[selectedColorIndex],
+          borderRadius: BorderRadius.circular(10)),
+      width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(title),
-              Row(
-                children: [
-                  InkWell(onTap: onEditPressed, child: Icon(Icons.edit)),
-                  SizedBox(width: 15),
-                  InkWell(onTap: onDeletepressed, child: Icon(Icons.delete))
-                ],
-              ),
+              Spacer(),
+              InkWell(onTap: onEditPressed, child: Icon(Icons.edit)),
+              SizedBox(width: 10),
+              InkWell(onTap: onDeletepressed, child: Icon(Icons.delete))
             ],
           ),
-          SizedBox(height: 12),
+          SizedBox(height: 10),
           Text(description),
-          SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(date),
-              SizedBox(width: 20),
-              InkWell(
-                  onTap: () {
-                    Share.share("$title\n$description");
-                  },
-                  child: Icon(Icons.share))
-            ],
+          SizedBox(height: 30),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(date),
+                SizedBox(width: 15),
+                InkWell(
+                    onTap: () {
+                      Share.share('$title\n$description');
+                    },
+                    child: Icon(Icons.share))
+              ],
+            ),
           )
         ],
       ),
