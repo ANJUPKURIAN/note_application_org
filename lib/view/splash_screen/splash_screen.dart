@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_application_org/core/constant/color_constant.dart';
+import 'dart:async';
 import 'package:note_application_org/view/notes_screen/notes_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -10,47 +10,46 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
-@override
+  @override
   void initState() {
-    Future.delayed(
-      Duration(seconds: 2)
-      )
-      .then((value) =>
-    Navigator.pushReplacement(
-    context, 
-    MaterialPageRoute(
-    builder: (context) => NotesScreen()
-    )
-    )
-    );
+    Timer( const Duration(seconds: 2), () {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const NotesScreen(),
+            ),
+          (route) => false);
+    });
+
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-   backgroundColor: ColorConstant.primaryBlack,
+      backgroundColor: Colors.black,
       body: Center(
-       child: Column(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               "asset/splash_image.png",
-              scale: 3,
+              height: 200,
+              width: 200,
             ),
+
             const SizedBox(height: 30),
             const Text(
-              "Note App",
+              "NoteApp",
               style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30),
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                 fontSize: 30),
             )
           ],
         ),
       ),
-   );
+    );
   }
 }
