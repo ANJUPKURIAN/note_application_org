@@ -23,7 +23,7 @@ class NotesScreenController {
       required String description,
       required String date,
       int colorIndex = 0}) async {
-    await myBox.add({
+      await myBox.add({
       "title": title,
       "description": description,
       "date": date,
